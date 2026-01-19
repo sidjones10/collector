@@ -6,8 +6,9 @@ A stunning web application for managing your comic book collection, inspired by 
 
 ### Core Functionality
 - **Comic Library Management** - Organize and track your entire comic collection
+- **Barcode Scanning** - Scan comic barcodes (UPC/EAN) using your device camera to automatically add comics
 - **Smart Search** - Search by title, author, character, genre, or universe
-- **Manual Input & Scanning** - Add comics manually or prepare for barcode scanning integration
+- **Manual Input** - Add comics manually with full details
 - **Rating System** - Rate comics with a 5-star system (like Letterboxd for comics)
 - **Read List** - Track comics you want to read
 - **Browse & Discover** - Explore upcoming releases, popular comics, and personalized recommendations
@@ -47,9 +48,33 @@ collector/
 
 1. **Open the app**: Simply open `index.html` in your web browser
 2. **Explore the landing page**: Click "Enter the Vault" to access your library
-3. **Add comics**: Click the "Add" button to add comics to your collection
+3. **Add comics**: Click the "Add" button and choose:
+   - **Scan Barcode**: Use your device camera to scan comic barcodes
+   - **Search Database**: Search for comics by title or UPC
+   - **Enter Manually**: Type in all comic details yourself
 4. **Browse**: Click "BROWSE" to see upcoming releases and recommendations
 5. **Rate comics**: Click on any comic to view details and add your rating
+
+### Using Barcode Scanner
+
+1. Click the "Add" button in The Deck
+2. Select "Scan Barcode"
+3. Click "Start Camera" and allow camera permissions
+4. Position the comic's barcode in the scanning area
+5. Once detected, the app will:
+   - Display the barcode number
+   - Search the database automatically
+   - Show the comic details if found
+   - Let you add it to your collection with one click
+6. If not found in the database, you can enter the details manually with the UPC pre-filled
+
+**Supported Barcode Types:**
+- UPC (Universal Product Code)
+- EAN (European Article Number)
+- Code 128
+- Code 39
+
+**Note:** Barcode scanning requires HTTPS or localhost and camera permissions from your browser.
 
 ## Pages
 
@@ -85,6 +110,15 @@ collector/
 - Track your personal ratings
 - See average readers' ratings
 - Interactive star selection on detail pages
+
+### Barcode Scanning
+- **Camera Access**: Uses device camera to scan barcodes
+- **Multiple Formats**: Supports UPC, EAN, Code 128, Code 39
+- **Auto-Detection**: Automatically detects and reads barcodes
+- **Visual Feedback**: Shows scanning line and detected barcode
+- **Audio Feedback**: Plays beep sound on successful scan
+- **Database Lookup**: Automatically searches for comic after scan
+- **Fallback**: If not found, allows manual entry with UPC pre-filled
 
 ### Filtering
 - **Collection**: View all comics in your library
@@ -126,22 +160,25 @@ All data is stored in your browser's localStorage:
 - Search history
 
 Sample data is included to get you started with:
-- The Walking Dead
-- X-Men
-- Batman
-- Spider-Man
-- Wolverine
-- Elektra
+- The Walking Dead (UPC: 978158240391)
+- X-Men (UPC: 759606098765)
+- Batman (UPC: 761941234567)
+- Spider-Man (UPC: 759606011234)
+- Wolverine (UPC: 759606054321)
+- Elektra (UPC: 759606075645)
+
+**Try scanning these UPC codes** to test the barcode scanning feature!
 
 ## Future Enhancements
 
 ### Ready for Integration
-- **Comic Vine API**: Search and auto-populate comic data
-- **Barcode Scanning**: Use device camera to scan comic barcodes
+- **Comic Vine API**: Connect to Comic Vine API for comprehensive comic database
+- **Google Books API**: Additional source for comic metadata
 - **Cloud Sync**: Sync your library across devices
 - **Social Features**: Share your collection and reviews
 - **Advanced Filtering**: More filter options and combinations
 - **Export/Import**: Backup and restore your collection
+- **Batch Scanning**: Scan multiple comics in succession
 
 ### Planned Features
 - Reading progress tracking
@@ -171,11 +208,14 @@ Works on all modern browsers:
 
 ## Tips
 
-1. **Start by rating comics** - This helps the recommendation algorithm learn your preferences
-2. **Use the read list** - Track comics you want to read
-3. **Explore Browse** - Discover new comics and see what's trending
-4. **Search is powerful** - Search by character names, authors, or genres
-5. **Data persists** - Your library is saved automatically in your browser
+1. **Use barcode scanning** - Fastest way to add comics to your collection
+2. **Start by rating comics** - This helps the recommendation algorithm learn your preferences
+3. **Use the read list** - Track comics you want to read
+4. **Explore Browse** - Discover new comics and see what's trending
+5. **Search is powerful** - Search by character names, authors, genres, or UPC codes
+6. **Data persists** - Your library is saved automatically in your browser
+7. **Good lighting helps** - When scanning barcodes, ensure good lighting for best results
+8. **Hold steady** - Keep the camera steady when scanning for faster detection
 
 ## Credits
 
@@ -187,9 +227,29 @@ Works on all modern browsers:
 
 ---
 
+## Technical Details
+
+### Barcode Scanning Implementation
+- **Library**: QuaggaJS v1.8.4
+- **Camera Access**: getUserMedia API
+- **Supported Formats**: UPC, EAN, Code 128, Code 39
+- **Browser Requirements**: Modern browsers with camera support
+- **Permissions**: Requires camera access permission
+
+### Browser Compatibility for Scanning
+- Chrome/Edge: Full support
+- Firefox: Full support
+- Safari: Full support (iOS 11+)
+- Opera: Full support
+
+**Note**: HTTPS or localhost required for camera access
+
+---
+
 **Note**: This is a front-end application. For production use, consider:
 - Backend database for data persistence
 - User authentication
-- API integration for comic data
+- Real API integration (Comic Vine, Google Books)
 - Cloud storage for cover images
 - Analytics for better recommendations
+- Server-side barcode lookup service
